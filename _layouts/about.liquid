@@ -1,0 +1,114 @@
+---
+layout: default
+---
+<div class="post about-page">
+  <header class="post-header">
+    <h1 class="post-title">
+      {% if site.title == 'blank' %}
+        <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
+        {{ site.last_name }}
+      {% else %}
+        {{ site.title }}
+      {% endif %}
+    </h1>
+    <p class="desc">{{ page.subtitle }}</p>
+    <nav class="about-profile-links" aria-label="Academic profiles">
+      {% if site.data.socials.scholar_userid %}
+        <a href="https://scholar.google.com/citations?hl=en&amp;user={{ site.data.socials.scholar_userid | escape }}">
+          <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i><span>Google Scholar</span>
+        </a>
+      {% endif %}
+      {% if site.data.socials.github_username %}
+        <a href="https://github.com/{{ site.data.socials.github_username | escape }}">
+          <i class="fa-brands fa-github" aria-hidden="true"></i><span>GitHub</span>
+        </a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <article>
+    {% assign about_sections = content | split: '<!-- research-section -->' %}
+    <div class="about-intro">
+      <section class="about-intro-copy" aria-labelledby="about-me">
+        {{ about_sections | first }}
+      </section>
+      {% if page.profile %}
+        <aside class="profile" aria-label="Profile and contact">
+          {% if page.profile.image %}
+            {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
+            {% if page.profile.image_circular %}
+              {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
+            {% else %}
+              {% assign profile_image_class = 'img-fluid z-depth-1
+      rounded' %}
+            {% endif %}
+            {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
+      30vw, 95vw"{% endcapture %}
+            {%
+              include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
+              cache_bust=true
+            %}
+          {% endif %}
+          {% if page.profile.more_info %}
+            <div class="more-info">{{ page.profile.more_info }}</div>
+          {% endif %}
+        </aside>
+      {% endif %}
+    </div>
+
+    {% if about_sections.size > 1 %}
+      <section class="about-section about-research" aria-labelledby="research-interests">
+        {% for section in about_sections offset: 1 %}
+          {{ section }}
+        {% endfor %}
+      </section>
+    {% endif %}
+
+    <!-- News -->
+    {% if page.announcements and page.announcements.enabled %}
+      <section class="about-section" aria-labelledby="news-heading">
+        <h2 id="news-heading">
+          <a href="{{ '/news/' | relative_url }}" style="color: inherit">News</a>
+        </h2>
+        {% include news.liquid limit=true %}
+      </section>
+    {% endif %}
+
+    <!-- Latest posts -->
+    {% if page.latest_posts and page.latest_posts.enabled %}
+      <section class="about-section" aria-labelledby="latest-posts-heading">
+        <h2 id="latest-posts-heading">
+          <a href="{{ '/blog/' | relative_url }}" style="color: inherit">Latest Posts</a>
+        </h2>
+        {% include latest_posts.liquid %}
+      </section>
+    {% endif %}
+
+    <!-- Selected papers -->
+    {% if page.selected_papers %}
+      <section class="about-section" aria-labelledby="selected-publications-heading">
+        <h2 id="selected-publications-heading">
+          <a href="{{ '/publications/' | relative_url }}" style="color: inherit">Selected Publications</a>
+        </h2>
+        {% include selected_papers.liquid %}
+      </section>
+    {% endif %}
+
+    <!-- Social -->
+    {% if page.social %}
+      <div class="social">
+        <div class="contact-icons">{% social_links %}</div>
+
+        <div class="contact-note">{{ site.contact_note }}</div>
+      </div>
+    {% endif %}
+
+    {% if site.newsletter and site.newsletter.enabled and site.footer_fixed %}
+      {% if site.plugins contains 'al_newsletter' %}
+        {% include plugins/al_newsletter_form_center_margin.liquid %}
+      {% else %}
+        {% include newsletter.liquid center=true %}
+      {% endif %}
+    {% endif %}
+  </article>
+</div>

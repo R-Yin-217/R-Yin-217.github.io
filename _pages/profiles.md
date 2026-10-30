@@ -3,7 +3,8 @@ layout: profiles
 permalink: /people/
 title: people
 description: members of the lab or group
-nav: true
+nav: false
+published: false # inactive demo; its sample biography has been removed
 nav_order: 7
 
 profiles:
