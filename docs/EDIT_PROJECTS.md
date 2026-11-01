@@ -2,12 +2,12 @@
 
 项目源文件位于 `_projects/`，每个 Markdown 文件对应一个详情页。
 
-| 顺序 | 文件 | 项目 |
-| --- | --- | --- |
-| 1 | `_projects/scalable-oversight.md` | Scalable Oversight |
-| 2 | `_projects/human-corrections.md` | Human Corrections |
-| 3 | `_projects/llm-evaluation.md` | LLM Evaluation |
-| 4 | `_projects/copd.md` | COPD / Biomedical Data |
+| 顺序 | 文件                              | 项目                   |
+| ---- | --------------------------------- | ---------------------- |
+| 1    | `_projects/scalable-oversight.md` | Scalable Oversight     |
+| 2    | `_projects/human-corrections.md`  | Human Corrections      |
+| 3    | `_projects/llm-evaluation.md`     | LLM Evaluation         |
+| 4    | `_projects/copd.md`               | COPD / Biomedical Data |
 
 ## 修改文字、顺序及显示状态
 
